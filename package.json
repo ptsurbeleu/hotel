@@ -13,7 +13,7 @@
     "lint": "eslint . --ignore-path .gitignore",
     "fix": "npm run lint -- --fix",
     "start": "run-p start:*",
-    "start:webpack": "rimraf dist && webpack -d --watch",
+    "start:preact": "preact watch front",
     "start:nodemon": "nodemon -- src/daemon",
     "prepublish": "npm run build && pkg-ok",
     "uninstall": "node bin/uninstall.js",
@@ -98,17 +98,13 @@
     "nodemon": "^1.8.1",
     "npm-run-all": "^4.0.2",
     "pkg-ok": "^1.0.1",
+    "preact-cli": "^1.4.1",
     "prettier": "^1.5.2",
     "rimraf": "^2.5.2",
     "sinon": "^2.3.8",
     "supertest": "^3.0.0",
     "tempy": "^0.1.0",
-    "uid": "0.0.2",
-    "vue": "^2.2.6",
-    "vue-loader": "^12.2.2",
-    "vue-template-compiler": "^2.2.6",
-    "webpack": "^3.3.0",
-    "whatwg-fetch": "^2.0.3"
+    "uid": "0.0.2"
   },
   "ava": {
     "serial": true,
