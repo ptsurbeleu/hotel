@@ -1,3 +1,5 @@
+import { Component } from 'preact'
+
 function href(id) {
   const { protocol, hostname } = window.location
   if (/hotel\./.test(hostname)) {
@@ -8,19 +10,17 @@ function href(id) {
   }
 }
 
-function Server({ id, server }) {
-  return (
-    <div class="pa3 cf bb">
-      <a class="fl white" href={href(id)}>
-        {id}
-      </a>
-      <div class="fr">
-        <button class="mr1">
+export default class Server extends Component {
+  render({ id, server, onToggleClick }) {
+    return (
+      <div>
+        <a href={href(id)}>
+          {id}
+        </a>
+        <button onClick={() => onToggleClick(id)}>
           {server.status}
         </button>
       </div>
-    </div>
-  )
+    )
+  }
 }
-
-export default Server
