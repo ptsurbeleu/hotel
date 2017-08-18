@@ -1,40 +1,48 @@
 import { Component } from 'preact'
-import Server from './Server'
+import Header from './Header'
+import ServerList from './ServerList'
+import api from './api'
+
+function isMonitor(obj) {
+  return obj.status
+}
+
+function isProxy(obj) {
+  return !isMonitor(obj)
+}
 
 export default class App extends Component {
   componentDidMount() {
-    window.fetch('/_/servers').then(r => r.json()).then(json => {
-      this.setState({
-        servers: json
-      })
+    api.fetchServers().then(this.updateState)
+    api.watchServers(this.updateState)
+  }
+
+  updateState(data) {
+    const arr = Object.keys(data).map(key => {
+      data[key].id = key
+      return data
+    })
+
+    this.setState({
+      monitors: arr.filter(isMonitor),
+      proxies: arr.filter(isProxy)
     })
   }
 
-  render(props, { servers = {} }) {
+  isRunning(id) {
+    const item = this.state.servers[id]
+    return item && item.status === 'running'
+  }
+
+  toggle(id) {
+    this.isRunning(id) ? api.stopMonitor(id) : api.startMonitor(id)
+  }
+
+  render() {
     return (
-      <div class="flex flex-column vh-100 bg-black-90 white">
-        <link
-          rel="stylesheet"
-          href="https://unpkg.com/tachyons@4.7.0/css/tachyons.min.css"
-        />
-        <div class="bb pa3">hotel</div>
-        <div class="flex-auto flex">
-          <div class="w-third br">
-            {Object.keys(servers).map(id =>
-              <Server id={id} server={servers[id]} />
-            )}
-            {Object.keys(servers).map(id =>
-              <Server id={id} server={servers[id]} />
-            )}
-          </div>
-          <div class="w-two-thirds ">
-            <div class="flex bb">
-              <div class="pa3 br">Logs</div>
-              <div class="pa3 br">Conf</div>
-            </div>
-            <div class="pa3">No Output</div>
-          </div>
-        </div>
+      <div>
+        <Header />
+        <ServerList servers={this.state.monitors} onToggleClick={this.toggle} />
       </div>
     )
   }
