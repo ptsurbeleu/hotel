@@ -1,4 +1,5 @@
 import { Component } from 'preact'
+import { Link } from 'preact-router/match'
 
 function href(id) {
   const { protocol, hostname } = window.location
@@ -11,15 +12,17 @@ function href(id) {
 }
 
 export default class Server extends Component {
-  render({ id, server, onToggleClick }) {
+  render({ server, onToggleClick }) {
+    const { id, status } = server
     return (
       <div>
         <a href={href(id)}>
           {id}
         </a>
         <button onClick={() => onToggleClick(id)}>
-          {server.status}
+          {status}
         </button>
+        <a href={`#/${id}`}>View</a>
       </div>
     )
   }
