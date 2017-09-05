@@ -5,13 +5,13 @@ export default function ServerList({ servers, onToggleClick }) {
     console.log(servers)
     return (
       <ul>
-        {servers.map(server =>
+        {servers.map(server => (
           <Server
             key={server.id}
             server={server}
             onToggleClick={onToggleClick}
           />
-        )}
+        ))}
       </ul>
     )
   }
