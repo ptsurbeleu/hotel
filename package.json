@@ -19,14 +19,9 @@
     "uninstall": "node bin/uninstall.js",
     "precommit": "npm test",
     "build": "run-s build:*",
-<<<<<<< HEAD
     "build:babel": "rimraf lib && babel src -d lib",
     "build:preact": "preact build front",
     "addFixture": "node src/cli/bin add 'node index' --dir ./test/fixtures/app"
-=======
-    "build:babel": "rimraf lib && babel src -d lib --copy-files --ignore src/front",
-    "build:preact": "preact build"
->>>>>>> wip
   },
   "repository": {
     "type": "git",
