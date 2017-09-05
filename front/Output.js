@@ -7,11 +7,7 @@ export default class Output extends Component {
       return (
         <div>
           > {id} {monitor.output.length}
-          {monitor.output.map(line =>
-            <div>
-              {line.text}
-            </div>
-          )}
+          {monitor.output.map(line => <div>{line.text}</div>)}
         </div>
       )
     }

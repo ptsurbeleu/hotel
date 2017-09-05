@@ -16,12 +16,8 @@ export default class Server extends Component {
     const { id, status } = server
     return (
       <div>
-        <a href={href(id)}>
-          {id}
-        </a>
-        <button onClick={() => onToggleClick(id)}>
-          {status}
-        </button>
+        <a href={href(id)}>{id}</a>
+        <button onClick={() => onToggleClick(id)}>{status}</button>
         <a href={`#/${id}`}>View</a>
       </div>
     )

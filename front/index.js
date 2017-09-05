@@ -23,13 +23,16 @@ function blankLine(val) {
 }
 
 function toLines(output) {
-  return output.replace(/\n$/, '').split('\n').map(line => {
-    // filter line
-    line = escapeHTML(line)
-    line = ansi2HTML(line)
-    line = blankLine(line)
-    return line
-  })
+  return output
+    .replace(/\n$/, '')
+    .split('\n')
+    .map(line => {
+      // filter line
+      line = escapeHTML(line)
+      line = ansi2HTML(line)
+      line = blankLine(line)
+      return line
+    })
 }
 
 export default class App extends Component {
