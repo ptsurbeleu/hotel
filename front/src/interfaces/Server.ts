@@ -1,4 +1,9 @@
+enum Status {
+  running,
+  stopped
+}
+
 export default interface Server {
   id: string,
-  status: string
+  status: Status
 }

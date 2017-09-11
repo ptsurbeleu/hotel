@@ -14,27 +14,26 @@ const state: State = {
 }
 
 const selectors: any = {
-  isRunning (state: State, id: string) {
-    const item = state.serverList.find(server => server.id === id)
-    return item && item.status === 'running'
-  },
+  isRunning (serverList: Array<Server>, serverId: string) => boolean) {
+    return serverList
+      .find(({ id, status }) => id === serverId && status === 'running') !== undefined
+  }
 }
 
 const actions: any = {
   updateServerList(state: State, actions: any, serverList: Array<Server>) {
     return { serverList }
   },
-  stopMonitor(state: State, actions: any, id: string) {
+  stopMonitor({ serverList }: State, actions: any, id: string) {
     // change server state
     startServer(id)
 
     // optimistic update
     return {
-      serverList: state
-        .serverList
-        .map(server => server.id === id
-          ? { ...server, status: 'stopped'}
-          : server
+      serverList: serverList
+        .map(s => s.id === id
+          ? { ...s, status: 'stopped'}
+          : s
         )
     }
   },
@@ -52,8 +51,8 @@ const actions: any = {
         )
     }
   },
-  toggle (state: State, actions: any, id: string) {
-    selectors.isRunning(state, id)
+  toggle ({ serverList }: State, actions: any, id: string) {
+    selectors.isRunning(serverList, id)
       ? actions.stopMonitor(id)
       : actions.startMonitor(id)
   }
@@ -65,7 +64,10 @@ app({
   mixins: [logger()],
   state,
   actions,
-  view: (state: State) => <h1>{state.serverList.map(server => <ServerItem server={server} onToggleClick={actions.toggle} />)}</h1>,
+  view: (state: State) => <h1>{state.serverList.map(server => <ServerItem
+    server={server}
+    onToggleClick={actions.toggle}
+  />)}</h1>,
   events: {
     load(state: State, actions: any) {
       watchServers((serverList) => actions.updateServerList(serverList))
