@@ -13,7 +13,7 @@
     "lint": "eslint . --ignore-path .gitignore",
     "fix": "npm run lint -- --fix",
     "start": "run-p start:*",
-    "start:webpack": "rimraf dist && webpack -d --watch",
+    "start:webpack": "cd front && npm start",
     "start:nodemon": "nodemon -- src/daemon",
     "prepublish": "npm run build && pkg-ok",
     "uninstall": "node bin/uninstall.js",
