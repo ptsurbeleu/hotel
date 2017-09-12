@@ -1,3 +1,4 @@
+import { startMonitor } from "./api";
 import { IState } from "./state";
 
 const selectors: any = {
@@ -11,12 +12,12 @@ const selectors: any = {
 };
 
 export default {
-  updateServerList(state: IState, actions: any, serverList: Server[]) {
+  updateServerList(state: IState, actions: any, serverList: IServer[]) {
     return { serverList };
   },
   stopMonitor({ serverList }: IState, actions: any, id: string) {
     // change server state
-    startServer(id);
+    startMonitor(id);
 
     // optimistic update
     return {
@@ -27,7 +28,7 @@ export default {
   },
   startMonitor(state: IState, actions: any, id: string) {
     // change server state
-    startServer(id);
+    startMonitor(id);
 
     // optimistic update
     return {
