@@ -4,7 +4,7 @@ RUN apk add --update bash nodejs git tmux && \
     npm cache clean && \
     rm -rf /var/cache/apk/*
 
-RUN npm install -gf hotel
+# RUN npm install -gf github:ptsurbeleu/hotel
 
 CMD [ "/bin/bash" ]
 

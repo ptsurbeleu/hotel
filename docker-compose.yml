@@ -3,6 +3,7 @@ services:
   # Our forms application
   hotel:
     network_mode: bridge
+    image: "hotel"
     build: "."
     working_dir: "/src/hotel"
     ports:
