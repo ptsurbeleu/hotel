@@ -11,6 +11,7 @@ module.exports = function(group) {
 
   function pac(req, res) {
     log('Serve proxy.pac')
+    res.type('application/x-ns-proxy-autoconfig')
     if (conf.proxy) {
       res.render('proxy-pac-with-proxy', { conf })
     } else {
@@ -21,6 +22,7 @@ module.exports = function(group) {
   router
     .get('/', index)
     .get('/proxy.pac', pac)
+    .get('/wpad.dat', pac)
     .get(
       '/:id',
       group.exists.bind(group),
