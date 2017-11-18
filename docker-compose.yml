@@ -1,0 +1,16 @@
+version: '2'
+services:
+  # Our forms application
+  hotel:
+    network_mode: bridge
+    build: "."
+    working_dir: "/src/hotel"
+    ports:
+      - "2000:2000"
+      - "80:2000"
+    volumes:
+      - "$PWD:/src/hotel"
+
+
+# http://findproxyforurl.com/deploying-wpad/
+# 
